@@ -140,13 +140,27 @@
 
 <body>
   <main>
-    <form>
+    <form novalidate>
       <h1 class="signup-header">Sign up</h1>
+
       <label for="username">Username</label>
-      <input id="username" type="text"></input>
+      <input id="username" 
+        name="username"
+        type="text" 
+        text="Username" 
+        required>
+      </input>
+      <span id=usernameError>enter a username</span>
+      
+      <p></p>
+
       <label for="password">Password</label>
-      <input id="password" type="password"></input>
-      <button id="submit" type="button">Submit</input>
+      <input id="password" 
+        type="password" 
+        minlength=10 
+        required></input>
+
+      <input type="submit" value="Submit">
     </form>
   </main>
 
@@ -156,6 +170,19 @@
       const { username, password } = e.target;
       console.log(username.value);
       console.log(password.value);
+
+      const usernameInput = document.getElementById('username');
+      const usernameError = document.getElementById('usernameError');
+      
+      if(usernameInput.validity.valid){
+        usernameError.textContent = "";
+        usernameError.className = "";
+      }
+      else{
+        usernameInput.className = "error";
+        usernameError.className = "error_message";
+        usernameError.textContent = "enter a username";
+      };
     });
   </script>
 
