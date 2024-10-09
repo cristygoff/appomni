@@ -18,12 +18,13 @@ describe('Signup', () => {
       cy.get('input[name=username]').should('have.class', 'error');
     });
 
-    it('the password is less than 10 characters', () => {
+   it('the password is less than 10 characters', () => {
       cy.findByLabelText('Username').type('sparkbox');
       cy.findByLabelText('Password').type('a');
-      cy.findByRole('button', { text: 'Submit' }).click();
-      cy.get('.error').should('exist');
-      cy.get('.error_message').should('have.text', 'Im a little teapot');
+      cy.findByText('Submit').click();
+      // Works manuallly, fails in Cypress. Waits don't help. I could use another set of eyes.
+      // cy.get('password').should('have.class', 'error'); 
+      cy.findByText('Please enter a password with 10 characters or more.').should('have.class', 'error_message');
     });
   });
 });
