@@ -150,15 +150,17 @@
         text="Username" 
         required>
       </input>
-      <span id=usernameError>enter a username</span>
+      <span id="usernameError" text="enter a username" aria-live="polite"></span>
       
       <p></p>
 
       <label for="password">Password</label>
       <input id="password" 
         type="password" 
-        minlength=10 
-        required></input>
+        name="password"
+        required>
+      </input>
+      <span id="passwordError" text="Please enter a password with 10 characters or more." aria-live="polite"></span>
 
       <input type="submit" value="Submit">
     </form>
@@ -167,21 +169,35 @@
   <script>
     document.querySelector('form').addEventListener('submit', (e) => {
       e.preventDefault();
+      console.log(e);
       const { username, password } = e.target;
       console.log(username.value);
       console.log(password.value);
 
-      const usernameInput = document.getElementById('username');
       const usernameError = document.getElementById('usernameError');
-      
-      if(usernameInput.validity.valid){
+
+      if(username.validity.valid){
+        username.className = "";
         usernameError.textContent = "";
         usernameError.className = "";
       }
       else{
-        usernameInput.className = "error";
+        username.className = "error";
         usernameError.className = "error_message";
         usernameError.textContent = "enter a username";
+      };
+
+      const passwordError = document.getElementById('passwordError');
+
+      if(password.value.length >= 10){
+        password.className = "";
+        passwordError.textContent = "";
+        passwordError.className = "";
+      }
+      else{
+        password.className = "error";
+        passwordError.className = "error_message";
+        passwordError.textContent = "Please enter a password with 10 characters or more.";
       };
     });
   </script>
